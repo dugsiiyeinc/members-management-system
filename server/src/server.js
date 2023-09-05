@@ -15,6 +15,22 @@ app.post('/register', (req, res) => {
     .catch(err => res.json(err))
 })
 
+app.post('/login', (req, res) => {
+    const { email, password } = req.body;
+    UserModel.findOne({ email: email, password: password})
+    .then(user => {
+        if(user){
+            if(user.password === password){
+                res.json("success")
+            }else{
+                res.json("the password is incorrect")
+            }
+        }else{
+            res.json("record is not exist")
+        }
+    })
+})
+
 app.listen(8000, () => {
     console.log("listening on port 8000")
 })
