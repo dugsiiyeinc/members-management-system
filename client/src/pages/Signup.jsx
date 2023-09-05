@@ -26,7 +26,7 @@ const Signup = () => {
                 <label>Email:</label> <br/>
                 <input className=" border border-gray-500 rounded-xl p-2 w-80 block mb-4 mt-1 focus:outline-green-500" type="email" placeholder="isesharafdin@gmail.com" onChange={(e) => setEmail(e.target.value)}/>
                 <label>Password:</label> <br/>
-                <input className=" border border-gray-500 rounded-xl p-2 w-80 block mb-4 mt-1 focus:outline-green-500" type="email" placeholder="Enter your password" onChange={(e) => setPassword(e.target.value)}/>
+                <input className=" border border-gray-500 rounded-xl p-2 w-80 block mb-4 mt-1 focus:outline-green-500" type="password" placeholder="Enter your password" onChange={(e) => setPassword(e.target.value)}/>
                 <input className=" border border-gray-500 rounded-xl p-2 w-80 block mb-4 mt-1 bg-green-500 hover:bg-green-600 cursor-pointer" type="submit" value="Register" />
                 </form>
                 <p>Already have an account? <Link className=" cursor-pointer " to="/login">Sign in</Link></p>
