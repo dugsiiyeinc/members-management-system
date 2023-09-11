@@ -1,5 +1,5 @@
 import UserModel from "../models/user.model.js";
-import { hashPassword } from "../utils/password.util.js";
+import { comparePassword, hashPassword } from "../utils/password.util.js";
 
 export const registerUser = async (req, res) => {
 
@@ -32,5 +32,27 @@ export const registerUser = async (req, res) => {
 
 }
 export const loginUser = async (req, res) => {
+
+    try {
+        
+        const { username, email, password } = req.body;
+
+        const userExists = await UserModel.findOne({username: username.toLowerCase(), email: email.toLowerCase()})
+
+        if(!userExists){
+            return res.status(401).send({status: false, message: 'User not found'});
+        }
+
+        const comparedPassword = await comparePassword(password, userExists.password)
+
+        if(!comparedPassword){
+            return res.status(401).send({status: false, message: 'invalid username or password'});
+        }
+
+        
+
+    } catch (error) {
+        console.log('error at login', error);
+    }
 
 }
