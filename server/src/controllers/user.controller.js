@@ -1,5 +1,7 @@
+import { JWT_Secret } from "../config/config.js";
 import UserModel from "../models/user.model.js";
 import { comparePassword, hashPassword } from "../utils/password.util.js";
+import jwt from "jsonwebtoken"
 
 export const registerUser = async (req, res) => {
 
@@ -35,21 +37,36 @@ export const loginUser = async (req, res) => {
 
     try {
         
-        const { username, email, password } = req.body;
+        const { email, password } = req.body;
 
-        const userExists = await UserModel.findOne({username: username.toLowerCase(), email: email.toLowerCase()})
+        const userExists = await UserModel.findOne({ email: email.toLowerCase()})
 
         if(!userExists){
             return res.status(401).send({status: false, message: 'User not found'});
         }
 
         const comparedPassword = await comparePassword(password, userExists.password)
+        console.log(password, userExists.password)
 
+        console.log(comparedPassword);
         if(!comparedPassword){
             return res.status(401).send({status: false, message: 'invalid username or password'});
         }
 
-        
+        const token = jwt.sign({id: userExists._id}, JWT_Secret)
+        res.cookie('token', token, {
+            httpOnly: true,
+            secure: false,
+            maxAge: 15 * 24 * 60 * 60 * 1000
+        });
+
+        res.status(200).send({
+            status: true,
+            id: userExists._id,
+            fullname: userExists.fullname,
+            username: userExists.username,
+            email: userExists.email
+        });
 
     } catch (error) {
         console.log('error at login', error);
