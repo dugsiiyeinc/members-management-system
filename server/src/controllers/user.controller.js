@@ -1,6 +1,5 @@
-import bcrypt from "bcrypt"
 import UserModel from "../models/user.model.js";
-// import { hashPassword } from "../utils/password.util.js";
+import { hashPassword } from "../utils/password.util.js";
 
 export const registerUser = async (req, res) => {
 
@@ -13,7 +12,7 @@ export const registerUser = async (req, res) => {
             return res.status(400).send({ status: false, message: "User already exists" })
         }
 
-        const hashedPassword = await bcrypt.hash(password, 10)
+        const hashedPassword = await hashPassword(password)
 
         const user = new UserModel({
             fullname,
