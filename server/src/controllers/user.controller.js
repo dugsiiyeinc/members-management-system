@@ -42,7 +42,7 @@ export const loginUser = async (req, res) => {
         const userExists = await UserModel.findOne({ email: email.toLowerCase()})
 
         if(!userExists){
-            return res.status(401).send({status: false, message: 'User not found'});
+            return res.status(404).send({status: false, message: 'User not found'});
         }
 
         const comparedPassword = await comparePassword(password, userExists.password)
