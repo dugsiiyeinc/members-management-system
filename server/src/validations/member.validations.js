@@ -17,3 +17,21 @@ export const validateAddingMember = (req, res, next) => {
     next();
 
 }
+
+export const validateUpdatingMember = (req, res, next) => {
+    const schema = Joi.object({
+        name: Joi.string().min(3).max(30),
+        email: Joi.string().email(),
+        age: Joi.number(),
+        role: Joi.string().min(3).max(30)
+    })
+
+    const { error } = schema.validate(req.body);
+
+    if (error) {
+        return res.status(400).send(error.details[0].message);
+    }
+
+    next();
+
+}
