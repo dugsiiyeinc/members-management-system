@@ -1,5 +1,7 @@
 import mongoose from "mongoose";
 
+const { ObjectId } = mongoose.Schema.Types;
+
 const memberSchema = new mongoose.Schema(
     {
         name: {
@@ -18,6 +20,9 @@ const memberSchema = new mongoose.Schema(
         role: {
             type: String,
             required: true,
+        },
+        author: {
+            type: ObjectId,
         }
     },
 
