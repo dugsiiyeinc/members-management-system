@@ -3,7 +3,7 @@ import { JWT_Secret } from "../config/config.js";
 export const authenticate = (req, res, next) => {
     const token = req.cookies.token;
 
-    if (!token) return res.status(401).send('access denied you are not authorized');
+    if (!token) return res.status(403).send({status: false, message: 'access denied. you are not authorized'});
 
     try {
 

@@ -21,8 +21,9 @@ const memberSchema = new mongoose.Schema(
             type: String,
             required: true,
         },
-        author: {
+        owner: {
             type: ObjectId,
+            ref:'Users'
         }
     },
 

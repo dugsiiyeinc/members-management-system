@@ -8,7 +8,7 @@ export const registerUser = async (req, res) => {
     try {
         const { fullname, username, email, password } = req.body;
 
-        const userExists = await UserModel.findOne({ email })
+        const userExists = await UserModel.findOne({ email: email.toLowerCase() })
 
         if (userExists) {
             return res.status(400).send({ status: false, message: "User already exists" })
@@ -36,24 +36,29 @@ export const registerUser = async (req, res) => {
 export const loginUser = async (req, res) => {
 
     try {
-        
-        const { email, password } = req.body;
 
-        const userExists = await UserModel.findOne({ email: email.toLowerCase()})
+        const { email, username, password } = req.body;
 
-        if(!userExists){
-            return res.status(404).send({status: false, message: 'User not found'});
+        const userExists = await UserModel.findOne({
+            $or: [
+                email ? { email: email.toLowerCase() } : { email },
+                username ? { username: username.toLowerCase() } : { username },
+            ]
+        })
+
+        if (!userExists) {
+            return res.status(404).send({ status: false, message: 'User not found' });
         }
 
         const comparedPassword = await comparePassword(password, userExists.password)
         console.log(password, userExists.password)
 
         console.log(comparedPassword);
-        if(!comparedPassword){
-            return res.status(401).send({status: false, message: 'invalid username or password'});
+        if (!comparedPassword) {
+            return res.status(401).send({ status: false, message: 'invalid username or password' });
         }
 
-        const token = jwt.sign({id: userExists._id}, JWT_Secret)
+        const token = jwt.sign({ id: userExists._id }, JWT_Secret)
         res.cookie('token', token, {
             httpOnly: true,
             secure: false,
@@ -62,10 +67,7 @@ export const loginUser = async (req, res) => {
 
         res.status(200).send({
             status: true,
-            id: userExists._id,
-            fullname: userExists.fullname,
-            username: userExists.username,
-            email: userExists.email
+            message: "you have successfully logged in"
         });
 
     } catch (error) {

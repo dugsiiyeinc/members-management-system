@@ -20,7 +20,8 @@ export const validateUserRegistration = (req, res, next) => {
 
 export const validateUserLogin = (req, res, next) => {
     const schema = Joi.object({
-        email: Joi.string().email().required(),
+        email: Joi.string().email(),
+        username: Joi.string(),
         password: Joi.string().min(6).required()
     })
 
