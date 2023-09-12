@@ -30,7 +30,7 @@ const List_members = () => {
                 Mr Sharafdin
               </td>
               <td className="text-start p-3 tracking-tighter text-xl">
-                iseSharafdin@gmail.com
+                isesharafdin@gmail.com
               </td>
               <td className="text-start p-3 tracking-tighter text-xl">34</td>
               <td className="text-start p-3 tracking-tighter text-xl">
@@ -39,11 +39,11 @@ const List_members = () => {
               <td className="flex flex-row justify-start items-center gap-3">
                 <Link
                   to="/Update_member/1"
-                  className="px-5 py-2 shadow mt-2 rounded-md border-2 border-black text-white bg-green-500 hover:bg-green-600"
+                  className="px-5 py-2 shadow mt-2 rounded-md border-2 border-gray-500 text-white bg-green-500 hover:bg-green-600"
                 >
                   Update
                 </Link>
-                <button className="px-5 py-2 shadow mt-2 border-2 border-black rounded-md text-white bg-red-500 hover:bg-red-600">
+                <button className="px-5 py-2 shadow mt-2 border-2 border-gray-500  rounded-md text-white bg-red-500 hover:bg-red-600">
                   Delete
                 </button>
               </td>
