@@ -9,8 +9,6 @@ export const addMember = async (req, res) => {
         // const newMember = new MemberModel({
         //     name,
         //     email,
-        //     age,
-        //     role
 
         const newMember = new MemberModel({ ...req.body, owner: req.user.id });
 
