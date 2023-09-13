@@ -7,8 +7,6 @@ export const addMember = async (req, res) => {
     try {
 
         // const newMember = new MemberModel({
-        //     name,
-        //     email,
 
         const newMember = new MemberModel({ ...req.body, owner: req.user.id });
 
