@@ -21,7 +21,7 @@ const memberSchema = new mongoose.Schema(
             type: String,
             required: true,
         },
-        owner: {
+        manager: {
             type: ObjectId,
             ref:'Users'
         }

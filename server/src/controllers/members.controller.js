@@ -2,13 +2,9 @@ import MemberModel from "../models/member.model.js";
 
 export const addMember = async (req, res) => {
 
-    // const { name, email, age, role } = req.body;
-
     try {
 
-        // const newMember = new MemberModel({
-
-        const newMember = new MemberModel({ ...req.body, owner: req.user.id });
+        const newMember = new MemberModel({ ...req.body, manager: req.user.id });
 
         await newMember.save();
 
@@ -26,7 +22,7 @@ export const addMember = async (req, res) => {
 export const readMembers = async (req, res) => {
 
     try {
-        const members = await MemberModel.find({ owner: req.user.id }).populate("owner", "-password")
+        const members = await MemberModel.find({ manager: req.user.id }).populate("manager", "-password")
 
         if (members.length == 0) {
             return res.status(404).send({ status: 'false', message: 'you haven\'t created a member yet' });
@@ -50,7 +46,7 @@ export const updateMember = async (req, res) => {
 
         const currentUser = req.user.id;
 
-        if (currentUser !== member.owner.toString()) {
+        if (currentUser !== member.manager.toString()) {
             return res.status(403).send("members must update the manager ");
         }
 
@@ -75,7 +71,7 @@ export const deleteMember = async (req, res) => {
 
         const currentUser = req.user.id;
 
-        if (currentUser !== member.owner.toString()) {
+        if (currentUser !== member.manager.toString()) {
             return res.status(403).send("members must delete by the manager ");
         }
         

@@ -5,10 +5,10 @@ import { authenticate } from '../middlewares/auth.middleware.js';
 
 const memberRouter = express.Router();
 
-memberRouter.post('/', validateAddingMember, authenticate, addMember);
-memberRouter.get('/', authenticate, readMembers);
-memberRouter.put('/:id', validateUpdatingMember, authenticate, updateMember);
-memberRouter.delete('/:id', authenticate, deleteMember);
+// memberRouter.post('/', validateAddingMember, authenticate, addMember);
+// memberRouter.get('/', authenticate, readMembers);
+// memberRouter.put('/:id', validateUpdatingMember, authenticate, updateMember);
+// memberRouter.delete('/:id', authenticate, deleteMember);
 
 memberRouter.route('/')
 .post(validateAddingMember, authenticate, addMember)
