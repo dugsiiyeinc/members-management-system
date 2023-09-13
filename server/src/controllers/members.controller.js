@@ -49,8 +49,6 @@ export const readMembers = async (req, res) => {
 export const updateMember = async (req, res) => {
     try {
 
-        // const { name, email, age, role } = req.body;
-
         const member = await MemberModel.findById(req.params.id);
 
         if (!member) return res.status(404).send("Not Found");
